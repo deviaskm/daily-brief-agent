@@ -31,8 +31,9 @@ class HotelMarketAnalysisAgent:
         raw_data = self.scraper.scrape_hotels(destination, check_in, check_out)
 
         # Analyze market
-        analysis = self.analyzer.calculate_statistics()
-        analysis.update(self.analyzer.identify_trends())
+        analysis = self.analyzer.calculate_statistics() or {}
+        trends = self.analyzer.identify_trends() or {}
+        analysis.update(trends)
 
         # Generate report
         report = self.reporter.generate_executive_summary()
