@@ -1,0 +1,41 @@
+# Hotel Market Analysis Agent Configuration
+
+scraper:
+  timeout: 30
+  max_retries: 3
+  rate_limit_delay: 1.0
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+analyzer:
+  min_data_points: 10
+  outlier_threshold: 2.0
+  methods:
+    - average_daily_rate
+    - occupancy_rate
+    - market_share
+    - price_trends
+
+reporter:
+  output_format: pdf
+  include_visualizations: true
+  sections:
+    - executive_summary
+    - market_overview
+    - competitor_analysis
+    - recommendations
+  company_name: "Hotel Market Analysis"
+  report_template: "templates/executive_report.html"
+
+destinations:
+  - name: "New York"
+    regions:
+      - Manhattan
+      - Brooklyn
+  - name: "Los Angeles"
+    regions:
+      - Downtown LA
+      - Beverly Hills
+  - name: "Miami"
+    regions:
+      - South Beach
+      - Downtown Miami

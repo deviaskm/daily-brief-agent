@@ -1,0 +1,35 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - [%(filename)s:%(lineno)d] - %(message)s'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.FileHandler
+    level: INFO
+    formatter: detailed
+    filename: logs/agent.log
+
+loggers:
+  src.scraper:
+    level: INFO
+  src.analyzer:
+    level: INFO
+  src.reporter:
+    level: INFO
+
+root:
+  level: INFO
+  handlers:
+    - console
+    - file
