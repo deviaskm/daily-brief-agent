@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(source venv_test/Scripts/activate)",
+      "Bash(python -m pytest tests/test_scraper.py::TestNormalizePrice -v)",
+      "Bash(python -m pytest tests/test_scraper.py::TestParseDate tests/test_scraper.py::TestRetryRequest -v)",
+      "Bash(python demo_scraper.py)",
+      "Bash(python -m pytest tests/test_scraper.py --tb=no -q)"
+    ]
+  }
+}

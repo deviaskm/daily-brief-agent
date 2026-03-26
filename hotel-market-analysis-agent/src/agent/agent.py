@@ -27,15 +27,37 @@ class HotelMarketAnalysisAgent:
         Returns:
             Generated report
         """
+        import logging
+        logger = logging.getLogger(__name__)
+
         # Scrape data
+        logger.info(f"Scraping hotel data for {destination}")
         raw_data = self.scraper.scrape_hotels(destination, check_in, check_out)
 
+        if not raw_data:
+            logger.warning(f"No hotel data scraped for {destination}")
+            return None
+
+        logger.info(f"Successfully scraped {len(raw_data)} hotels")
+
         # Analyze market
+        logger.info("Running market analysis")
+        self.analyzer.data = raw_data
         analysis = self.analyzer.calculate_statistics() or {}
         trends = self.analyzer.identify_trends() or {}
         analysis.update(trends)
 
         # Generate report
+        logger.info("Generating executive report")
+        self.reporter.analysis_results = analysis
         report = self.reporter.generate_executive_summary()
 
-        return report
+        logger.info("Analysis pipeline completed successfully")
+        return {
+            'destination': destination,
+            'check_in': check_in,
+            'check_out': check_out,
+            'hotels_scraped': len(raw_data),
+            'analysis': analysis,
+            'report': report,
+        }
